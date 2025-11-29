@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Hypertension Health Monitor</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Hypertension Health Monitor</h1>
+            <p class="subtitle">
+                Simple Flask + SQLite app to track blood pressure and heart rate.
+            </p>
+        </header>
+
+        <section class="add-section">
+            <h2>Add Measurement</h2>
+            <form action="{{ url_for('add_measurement') }}" method="POST" class="measurement-form">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="patient_name">Patient Name</label>
+                        <input
+                            type="text"
+                            id="patient_name"
+                            name="patient_name"
+                            placeholder="Optional (e.g. John Doe)">
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="systolic">Systolic (mmHg) <span>*</span></label>
+                        <input
+                            type="number"
+                            id="systolic"
+                            name="systolic"
+                            required
+                            placeholder="e.g. 130">
+                    </div>
+                    <div class="form-group">
+                        <label for="diastolic">Diastolic (mmHg) <span>*</span></label>
+                        <input
+                            type="number"
+                            id="diastolic"
+                            name="diastolic"
+                            required
+                            placeholder="e.g. 85">
+                    </div>
+                    <div class="form-group">
+                        <label for="heart_rate">Heart Rate (bpm)</label>
+                        <input
+                            type="number"
+                            id="heart_rate"
+                            name="heart_rate"
+                            placeholder="e.g. 72">
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group full-width">
+                        <label for="notes">Notes</label>
+                        <textarea
+                            id="notes"
+                            name="notes"
+                            rows="3"
+                            placeholder="Symptoms, medication, time of day, etc."></textarea>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn primary">Save Measurement</button>
+            </form>
+        </section>
+
+        <section class="list-section">
+            <h2>Recorded Measurements</h2>
+            {% if measurements %}
+                <table class="measurement-table">
+                    <thead>
+                        <tr>
+                            <th>Recorded At (UTC)</th>
+                            <th>Patient</th>
+                            <th>Systolic</th>
+                            <th>Diastolic</th>
+                            <th>Heart Rate</th>
+                            <th>Notes</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for m in measurements %}
+                        <tr class="{% if m['flagged'] %}flagged{% endif %}">
+                            <td>{{ m['recorded_at'] }}</td>
+                            <td>{{ m['patient_name'] or 'N/A' }}</td>
+                            <td>{{ m['systolic'] }}</td>
+                            <td>{{ m['diastolic'] }}</td>
+                            <td>{{ m['heart_rate'] or '-' }}</td>
+                            <td>{{ m['notes'] or '-' }}</td>
+                            <td>
+                                {% if m['flagged'] %}
+                                    <span class="badge badge-danger">Flagged</span>
+                                {% else %}
+                                    <span class="badge badge-normal">Normal</span>
+                                {% endif %}
+                            </td>
+                            <td class="actions-cell">
+                                <button
+                                    class="btn secondary flag-btn"
+                                    data-id="{{ m['id'] }}">
+                                    {% if m['flagged'] %}Unflag{% else %}Flag{% endif %}
+                                </button>
+                                <form
+                                    action="{{ url_for('delete_measurement', measurement_id=m['id']) }}"
+                                    method="POST"
+                                    onsubmit="return confirm('Delete this measurement?');">
+                                    <button type="submit" class="btn danger">Delete</button>
+                                </form>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            {% else %}
+                <p class="empty-state">
+                    No measurements recorded yet. Start by adding your first blood pressure reading above.
+                </p>
+            {% endif %}
+        </section>
+    </div>
+
+    <script src="{{ url_for('static', filename='main.js') }}"></script>
+</body>
+</html>

@@ -1,0 +1,155 @@
+body {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    background: #f4f4f9;
+    margin: 0;
+    padding: 0;
+    color: #111827;
+}
+
+.container {
+    max-width: 1000px;
+    margin: 32px auto;
+    background: #ffffff;
+    padding: 24px 28px 32px;
+    border-radius: 18px;
+    box-shadow: 0 12px 35px rgba(15, 23, 42, 0.12);
+}
+
+header h1 {
+    margin: 0;
+    font-size: 1.9rem;
+}
+
+.subtitle {
+    margin-top: 4px;
+    color: #6b7280;
+    font-size: 0.95rem;
+}
+
+h2 {
+    margin-top: 24px;
+    margin-bottom: 10px;
+    font-size: 1.3rem;
+}
+
+.add-section,
+.list-section {
+    margin-top: 24px;
+}
+
+.measurement-form .form-group {
+    margin-bottom: 10px;
+}
+
+.form-row {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+
+.form-group {
+    flex: 1;
+    min-width: 180px;
+}
+
+.form-group.full-width {
+    flex-basis: 100%;
+}
+
+label span {
+    color: #dc2626;
+}
+
+input[type="number"],
+input[type="text"],
+textarea {
+    width: 100%;
+    padding: 8px 10px;
+    border-radius: 8px;
+    border: 1px solid #d1d5db;
+    font-size: 0.95rem;
+    box-sizing: border-box;
+}
+
+textarea {
+    resize: vertical;
+}
+
+.btn {
+    border: none;
+    border-radius: 999px;
+    padding: 8px 16px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    margin-right: 6px;
+    margin-top: 6px;
+}
+
+.btn.primary {
+    background: #2563eb;
+    color: #ffffff;
+}
+
+.btn.secondary {
+    background: #e0f2fe;
+    color: #1d4ed8;
+}
+
+.btn.danger {
+    background: #fee2e2;
+    color: #b91c1c;
+}
+
+.btn:hover {
+    opacity: 0.92;
+}
+
+.measurement-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 12px;
+    font-size: 0.9rem;
+}
+
+.measurement-table th,
+.measurement-table td {
+    padding: 8px 10px;
+    border-bottom: 1px solid #e5e7eb;
+    text-align: left;
+    vertical-align: top;
+}
+
+.measurement-table thead {
+    background: #eff6ff;
+}
+
+.measurement-table tr.flagged {
+    background: #fef2f2;
+}
+
+.badge {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 999px;
+    font-size: 0.75rem;
+}
+
+.badge-normal {
+    background: #d1fae5;
+    color: #065f46;
+}
+
+.badge-danger {
+    background: #fee2e2;
+    color: #b91c1c;
+}
+
+.actions-cell {
+    white-space: nowrap;
+}
+
+.empty-state {
+    color: #6b7280;
+    font-style: italic;
+    margin-top: 8px;
+}
