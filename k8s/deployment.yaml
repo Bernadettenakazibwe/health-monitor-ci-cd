@@ -16,8 +16,8 @@ spec:
     spec:
       containers:
         - name: health-monitor
-          image: health-monitor-app:latest
-          imagePullPolicy: IfNotPresent
+          image: bn19788/health-monitor-app:latest
+          imagePullPolicy: Always
           ports:
             - containerPort: 5000
           env:
